@@ -1,0 +1,218 @@
+Correlation का मतलब होता है दो variables के बीच संबंध (relationship) को मापना। यह बताता है कि एक variable बदलने पर दूसरा variable कैसे बदलता है।
+
+Key Points:
+Range: Correlation coefficient हमेशा 
+−
+1
+ से 
++
+1
+ के बीच होता है।
+
++
+1
+ → Perfect positive correlation (दोनों साथ बढ़ते हैं)।
+
+−
+1
+ → Perfect negative correlation (एक बढ़े तो दूसरा घटे)।
+
+0
+ → कोई linear संबंध नहीं।
+
+Positive correlation: अगर income बढ़े तो spending भी बढ़े।
+
+Negative correlation: अगर price बढ़े तो demand घटे।
+
+Zero correlation: variables का कोई सीधा संबंध नहीं।
+
+Example (Simple):
+मान लो आपके पास data है:
+
+Study hours ↑ → Exam marks ↑ → Positive correlation
+
+TV watching hours ↑ → Exam marks ↓ → Negative correlation
+
+👉 Correlation सिर्फ linear relationship बताता है, कारण (cause) नहीं। यानी अगर दो चीज़ें correlated हैं, इसका मतलब यह नहीं कि एक दूसरे का कारण है।
+
+High correlation ka matlab hai ki do variables ke beech bahut strong linear relationship hai.
+
+Kaise pata chalega:
+Correlation coefficient (r value):
+
+Agar 
+∣
+𝑟
+∣
+ (absolute value) 0.7 ya usse zyada ho → high correlation maana jaata hai.
+
+𝑟
+≈
++
+1
+ → strong positive correlation (ek badhne par dusra bhi badhta hai).
+
+𝑟
+≈
+−
+1
+ → strong negative correlation (ek badhne par dusra ghata hai).
+
+
+Scatter plot visualization:
+
+Points ek straight line ke aas-paas closely clustered hote hain.
+
+Positive slope → positive correlation.
+
+Negative slope → negative correlation.
+
+Heatmap (correlation matrix):
+
+Darker/stronger colors (depending on palette) indicate high correlation.
+
+Example: Agar StudyHours ↔ Marks = 0.85 → high positive correlation.
+
+Quick Example:
+Income vs. Spending: r = 0.82 → high positive correlation.
+
+Price vs. Demand: r = -0.78 → high negative correlation.
+
+👉 Rule of thumb:
+
+∣
+𝑟
+∣
+<
+0.3
+ → weak correlation
+
+0.3
+≤
+∣
+𝑟
+∣
+<
+0.7
+ → moderate correlation
+
+∣
+𝑟
+∣
+≥
+0.7
+ → high correlation
+
+
+
+variance, mean, median, and mode help us understand data:
+
+1. Mean (Average)
+Formula: 
+Mean
+=
+Sum of all values
+Number of values
+
+Use: Shows the central tendency (typical value).
+
+Limitation: Sensitive to outliers (e.g., one very large number can pull the mean up).
+
+2. Median (Middle value)
+Arrange data in ascending order → pick the middle value.
+
+Use: Represents the "middle" of the dataset.
+
+Advantage: Not affected by extreme values (outliers).
+
+Example: Salaries → median is often better than mean because one billionaire can distort the average.
+
+3. Mode (Most frequent value)
+The value that occurs most often.
+
+Use: Useful for categorical data (e.g., most common shoe size).
+
+Can also show peaks in numerical data distributions.
+
+4. Variance (Spread of data)
+Formula: 
+Variance
+=
+∑
+(
+𝑥
+𝑖
+−
+Mean
+)
+2
+𝑛
+
+Use: Measures how spread out the data is around the mean.
+
+High variance → data points are far from mean.
+
+Low variance → data points are close to mean.
+
+How they work together:
+Mean tells the "average" value.
+
+Median tells the "middle" value (robust against outliers).
+
+Mode tells the "most common" value.
+
+Variance tells how consistent or spread out the data is.
+
+👉 Example (Exam Marks):
+
+Mean = 70 → average score.
+
+Median = 72 → middle student scored 72.
+
+Mode = 75 → most students scored 75.
+
+Variance = 20 → scores are fairly close to the mean (not too spread out).
+
+Would you like me to make a visual diagram (like a distribution curve) showing mean, median, mode positions and variance spread? That will make the concept crystal clear.
+
+
+
+The Coefficient of Variation (CV) is a statistical measure that tells us how much variation (spread) there is in a dataset relative to its mean.
+
+📌 Definition
+𝐶𝑉=
+Standard Deviation
+Mean
+It is usually expressed as a percentage:
+
+𝐶𝑉%=(𝜇)×100
+
+Where:
+
+𝜎
+ = Standard deviation
+
+𝜇
+ = Mean
+
+📌 Why it helps
+Relative measure of variability: Unlike variance or standard deviation (which are absolute), CV compares spread relative to the average.
+
+Unit-free: Since it’s a ratio, CV can be used to compare datasets measured in different units.
+
+Interpretation:
+
+Low CV → data is consistent (less spread around mean).
+
+High CV → data is more scattered (less reliable).
+
+
+👉 Even though both have the same SD, Dataset B is more variable relative to its mean.
+
+
+
+
+
+
+
+

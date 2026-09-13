@@ -1,0 +1,3 @@
+Implementation Report
+
+The initial Logistic Regression model is trained exclusively on 25 labeled samples. It then predicts the unlabeled data and accepts a pseudo-label only when the maximum class probability is at least 0.80 (80% confidence). The accepted pseudo-labels are saved in pseudo_labels.csv. The original labeled samples and high-confidence pseudo-labeled samples are combined to retrain the final model. Accuracy is evaluated on a separate test set that is not used for training or pseudo-label generation.

@@ -1,0 +1,4 @@
+-------------Sorting-----
+!) Quick sort( something like binary search)------->fast technique
+2) Bubble sort
+3) Insertion sort 
