@@ -1,0 +1,4 @@
+$ gcc process_fork.c -o process_fork
+$ ./process_fork
+Child process: PID = 327, Parent PID = 325
+Parent process: PID = 325, Child PID = 327

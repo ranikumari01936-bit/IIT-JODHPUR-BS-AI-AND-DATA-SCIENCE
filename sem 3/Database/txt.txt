@@ -1,0 +1,26 @@
+==================================================
+TWO-PHASE LOCKING (2PL) EXECUTION SEQUENCE
+==================================================
+
+Phase 1: Growing Phase (Lock Acquisition Only)
+- Time T1: Transaction T1 requests and acquires a Shared (S) lock on Data Item A.
+  -> Action: Lock_S(T1, A) Granted.
+
+- Time T2: Transaction T2 requests and acquires an Exclusive (X) lock on Data Item B.
+  -> Action: Lock_X(T2, B) Granted.
+
+- Time T3: Transaction T2 requests a Shared (S) lock on Data Item A.
+  -> Since T1 holds S(A), T2's request is compatible and granted: Lock_S(T2, A) Granted.
+
+- Time T4: Transaction T1 requests an Exclusive (X) lock on Data Item B to perform Write(B).
+  -> Conflict Detected: T2 currently holds X(B). Transaction T1 must wait until T2 releases its lock on B.
+
+Phase Transition & Resolution:
+- T2 finishes its operations, enters the Shrinking Phase, and releases its locks:
+  -> Action: Unlock(T2, B), Unlock(T2, A).
+- Once X(B) is released, T1 is granted the Exclusive lock on B:
+  -> Action: Lock_X(T1, B) Granted. T1 performs Write(B).
+
+Phase 2: Shrinking Phase (Lock Release Only)
+- T1 completes execution and releases all its acquired locks:
+  -> Action: Unlock(T1, B), Unlock(T1, A).

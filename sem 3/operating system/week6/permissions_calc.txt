@@ -1,0 +1,42 @@
+FILE PERMISSION CALCULATION - BINARY TO OCTAL
+=============================================
+File: game        Initial mode: 644 (rw-r--r--)    Scope: Owner, Group, Public
+
+Bit values: r = 4 (100), w = 2 (010), x = 1 (001), - = 0
+Each octal digit = 3 bits (r w x), where 1 = permission granted, 0 = denied.
+Digits are in order: Owner | Group | Public (Others).
+
+1) OCTAL 761  ->  rwxrw---x
+---------------------------------------------------------------
+Entity    Binary (r w x)   Calculation        Octal   Symbolic
+Owner     1 1 1            4 + 2 + 1 = 7        7      rwx
+Group     1 1 0            4 + 2 + 0 = 6        6      rw-
+Public    0 0 1            0 + 0 + 1 = 1        1      --x
+
+Full binary : 111 110 001
+Octal       : 761
+String      : rwxrw---x   (9 characters)
+
+Meaning: Owner can read, write, execute; Group can read and write;
+Public can only execute.
+
+2) OCTAL 640  ->  rw-r-----
+---------------------------------------------------------------
+Entity    Binary (r w x)   Calculation        Octal   Symbolic
+Owner     1 1 0            4 + 2 + 0 = 6        6      rw-
+Group     1 0 0            4 + 0 + 0 = 4        4      r--
+Public    0 0 0            0 + 0 + 0 = 0        0      ---
+
+Full binary : 110 100 000
+Octal       : 640
+String      : rw-r-----   (9 characters)
+
+Meaning: Owner can read and write; Group can only read; Public has no access.
+
+3) INITIAL MODE 644 (for reference)
+---------------------------------------------------------------
+Owner 110 = 6 (rw-) | Group 100 = 4 (r--) | Public 100 = 4 (r--)  ->  rw-r--r--
+
+COMMAND USED
+---------------------------------------------------------------
+chmod 761 game

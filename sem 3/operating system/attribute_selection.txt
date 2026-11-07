@@ -1,0 +1,16 @@
+================================================================================
+ATTRIBUTE SELECTION JUSTIFICATION REPORT
+Student Name : Rani Kumari
+Roll Number  : B25BS1270
+Email        : b25bs1270@iitj.ac.in
+================================================================================
+
+Based on decision tree metric analysis for the root node (10 instances: 6 Approved, 4 Rejected), Attribute B (Employment) is selected as the optimal splitting attribute.
+
+Mathematical Justification:
+- Attribute B (Employment) perfectly splits the dataset into pure child nodes (Employed: 6 Yes / 0 No; Unemployed: 0 Yes / 4 No), resulting in a weighted child entropy of 0.0000 bits. It achieves a maximum Information Gain of 0.9710 bits and a maximum Gain Ratio of 1.0000 (100% efficiency).
+- Attribute A (Credit_Score) produces impure splits across all branches (High: 2Y/1N, Medium: 2Y/1N, Low: 2Y/2N), resulting in a high weighted child entropy of 0.9510 bits, a minimal Information Gain of 0.01997 bits, and a Gain Ratio of only 0.0127.
+
+Conclusion:
+Following the C4.5 algorithm rule of choosing the attribute with the highest Gain Ratio, Employment is selected for the root node split.
+================================================================================

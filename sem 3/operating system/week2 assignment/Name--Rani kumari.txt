@@ -1,0 +1,14 @@
+Name--Rani kumari
+roll no-- B25bs1270
+
+
+
+1. When you double-click a .py file, the GUI shell (like Explorer or Finder) sends a request to the operating system to open the file with its associated program (usually Python interpreter).
+
+2. The OS checks the file association table to determine which executable should handle .py files.
+
+3. The loader brings the Python interpreter binary into memory and sets up the process environment (address space, registers, stack, heap).
+
+4. The OS then performs I/O operations to read the .py file from storage into memory.
+
+5. Finally, the Python interpreter begins execution, parsing the file and running the first line of code within the process context.

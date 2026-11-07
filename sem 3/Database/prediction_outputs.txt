@@ -1,0 +1,8 @@
+House Price Prediction Outputs
+
+1. Predicting a numeric house price (e.g., ₹65,00,000) -> Regression
+2. Predicting another numeric house price (e.g., ₹82,50,000) -> Regression
+3. Predicting whether a house belongs to a price category (Low/Medium/High) -> Classification
+
+Conclusion:
+Specific house price prediction is a supervised regression task because the target is a continuous numerical value.

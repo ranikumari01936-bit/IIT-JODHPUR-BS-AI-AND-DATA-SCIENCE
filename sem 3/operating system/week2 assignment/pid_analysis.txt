@@ -1,0 +1,9 @@
+The fork() system call creates a new child process. Its return
+value is different in the two processes. In the child process,
+fork() returns 0, so the program identifies it with pid == 0.
+In the parent process, fork() returns the child's PID, which is
+a positive value. Therefore, the parent can identify itself
+using getpid() and identify its child using the positive return
+value. A negative return value indicates that fork() failed.
+Both processes execute their respective print statements and
+terminate successfully.

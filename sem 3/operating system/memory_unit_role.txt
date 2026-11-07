@@ -1,0 +1,5 @@
+Role of the Memory Management Unit (MMU) in Address Translation
+
+The MMU is the hardware component, located between the CPU and main memory, that translates addresses in real time. The CPU only generates logical addresses, so the program never sees real memory locations. For logical address 346, the MMU adds the relocation register value 14,000 to obtain physical address 14,346 on every memory reference, without software overhead.
+
+The MMU also enforces protection. It checks that the address lies between the base (14,000) and base plus limit (15,000, assuming a limit of 1,000). If the address is outside this range, the MMU raises a trap to the operating system instead of accessing memory. This stops one process from reading or corrupting another process's memory or the OS itself.

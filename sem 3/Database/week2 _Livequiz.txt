@@ -1,0 +1,364 @@
+Task 1: Identify Information for Users, Posts, Likes
+
+
+(Users Table)
+
+| User ID | Name        | Email                                     | Username   |
+| ------- | ----------- | ----------------------------------------- | ---------- |
+| 101     | Riya Sharma | [riya@gmail.com](mailto:riya@gmail.com)   | riyasharma |
+| 102     | Rahul Kumar | [rahul@gmail.com](mailto:rahul@gmail.com) | rahulkumar |
+| 103     | Priya Singh | [priya@gmail.com](mailto:priya@gmail.com) | priyasingh |
+| 104     | Aman Verma  | [aman@gmail.com](mailto:aman@gmail.com)   | amanverma  |
+
+
+(Posts Table)
+
+| PostID | UserID | Caption                | ImageURL     | CreatedDateTime  |
+| ------ | ------ | ---------------------- | ------------ | ---------------- |
+| P001   | 101    | Beautiful day!         | image001.jpg | 2026-09-12 09:30 |
+| P002   | 102    | Enjoying my weekend!   | image002.jpg | 2026-09-12 10:15 |
+| P003   | 103    | Nature is beautiful    | image003.jpg | 2026-09-12 11:00 |
+| P004   | 104    | Great memories!        | image004.jpg | 2026-09-12 12:20 |
+
+
+
+(Likes Table)
+
+| LikeID | UserID | PostID | LikedDateTime    |
+| ------ | ------ | ------ | ---------------- |
+| L001   | 102    | P001   | 2026-09-12 09:45 |
+| L002   | 103    | P002   | 2026-09-12 10:30 |
+| L003   | 104    | P003   | 2026-09-12 11:20 |
+| L004   | 101    | P004   | 2026-09-12 12:40 |
+
+
+
+
+Answers
+
+a. Which column should uniquely identify each user?
+The UserID column should uniquely identify each user.
+
+b. Why should this value be unique?
+It should be unique so that each user can be identified correctly without confusion or duplicate records.
+
+c. Can two users have the same User ID? Explain briefly.
+No. Two users should not have the same UserID because it acts as the unique identifier (primary key) for each user.
+
+d. Mention one additional column that could be useful in the Users table.
+One useful additional column is PhoneNumber, which can store the user's contact number.
+
+
+
+Task 2  Design a Users table for the application
+
+
+
+| UserID | Name        | Username   | Email                                     |
+| ------ | ----------- | ---------- | ----------------------------------------- |
+| 101    | Riya Sharma | riyasharma | [riya@gmail.com](mailto:riya@gmail.com)   |
+| 102    | Rahul Kumar | rahulkumar | [rahul@gmail.com](mailto:rahul@gmail.com) |
+| 103    | Priya Singh | priyasingh | [priya@gmail.com](mailto:priya@gmail.com) |
+| 104    | Aman Verma  | amanverma  | [aman@gmail.com](mailto:aman@gmail.com)   |
+
+
+Answers
+
+a. Which column should uniquely identify each user?
+UserID should uniquely identify each user.
+
+b. Why should this value be unique?
+It helps identify each user separately and prevents duplicate user records.
+
+c. Can two users have the same UserID? Explain briefly.
+No. Two users cannot have the same UserID because it is the primary key and must be unique for every user.
+
+d. Mention one additional column that could be useful in the Users table.
+PhoneNumber could be added to store the user's contact number.
+
+
+
+Task 3: Posts Table
+
+
+
+| PostID | UserID | Caption              | CreatedDateTime  |
+| ------ | ------ | -------------------- | ---------------- |
+| P001   | 101    | Beautiful day!       | 2026-09-12 09:30 |
+| P002   | 102    | Enjoying my weekend! | 2026-09-12 10:15 |
+| P003   | 103    | Nature is beautiful  | 2026-09-12 11:00 |
+| P004   | 104    | Great memories!      | 2026-09-12 12:20 |
+
+
+
+Answers
+
+a. Which column uniquely identifies a post?
+PostID uniquely identifies each post.
+
+b. Which column connects the post to the Users table?
+UserID connects the Posts table to the Users table.
+
+c. Can one user create multiple posts?
+Yes. One user can create multiple posts.
+
+d. What type of relationship exists between Users and Posts?
+  There is a one-to-many (1:N) relationship between Users and Posts.
+One user can have many posts, but each post belongs to one user.
+
+
+
+USERS                         POSTS
+┌───────────────┐             ┌────────────────────┐
+│ UserID (PK)   │  1       N  │ PostID (PK)        │
+│ Name          │────────────<│ UserID (FK)        │
+│ Username      │             │ Caption            │
+│ Email         │             │ CreatedDateTime    │
+└───────────────┘             └────────────────────┘
+
+        One User ──────────── Many Posts
+
+
+
+
+Task 4: Users–Posts Relationship
+
+
+Relationship Diagram
+
+┌──────────────────┐          ┌────────────────────┐
+│      USERS       │          │       POSTS        │
+├──────────────────┤          ├────────────────────┤
+│ UserID (PK)      │  1    N  │ PostID (PK)        │
+│ Name             │─────────<│ UserID (FK)        │
+│ Username         │          │ Caption            │
+│ Email            │          │ CreatedDateTime    │
+└──────────────────┘          └────────────────────┘
+
+
+Answers
+
+a. Identify the One side of the relationship.
+The Users table is the One (1) side.
+
+b. Identify the Many side.
+The Posts table is the Many (N) side.
+
+c. Explain the meaning of a One-to-Many relationship in your own words.
+A One-to-Many relationship means that one record in one table can be connected to many records in another table. Here, one user can create many posts, but each post belongs to only one user.
+
+d. Give one more real-life example of a One-to-Many relationship.
+One teacher → Many students.
+One teacher can teach many students, while each student can belong to that particular teacher's class.
+
+
+
+
+Task 5: Likes Table
+
+| LikeID | UserID | PostID | LikedDateTime    |
+| ------ | ------ | ------ | ---------------- |
+| L001   | 101    | P002   | 2026-09-12 10:30 |
+| L002   | 101    | P003   | 2026-09-12 11:15 |
+| L003   | 102    | P001   | 2026-09-12 11:30 |
+| L004   | 103    | P001   | 2026-09-12 11:45 |
+| L005   | 104    | P002   | 2026-09-12 12:00 |
+
+Answers
+
+a. Why does the Likes table need both User ID and Post ID?
+It needs both because UserID identifies who liked the post, while PostID identifies which post was liked.
+
+b. What does one row in the Likes table represent?
+One row represents one user liking one particular post.
+
+c. Can one user like multiple posts?
+Yes. One user can like many different posts.
+
+d. Can one post receive likes from multiple users?
+Yes. Many different users can like the same post.
+
+e. What type of relationship exists between Users and Posts when likes are considered?
+A Many-to-Many (M:N) relationship exists.
+
+One user → can like many posts.
+One post → can be liked by many users.
+The Likes table acts as a bridge/junction table between Users and Posts.
+
+
+
+
+┌──────────────────┐
+│      USERS       │
+├──────────────────┤
+│ UserID (PK)      │
+│ Name             │
+│ Username         │
+│ Email            │
+└────────┬─────────┘
+         │ 1
+         │
+         │ N
+┌────────▼─────────┐
+│      POSTS       │
+├──────────────────┤
+│ PostID (PK)      │
+│ UserID (FK)      │
+│ Caption          │
+│ CreatedDateTime  │
+└────────┬─────────┘
+         │ 1
+         │
+         │ N
+┌────────▼─────────┐
+│      LIKES       │
+├──────────────────┤
+│ LikeID (PK)      │
+│ UserID (FK)      │
+│ PostID (FK)      │
+│ LikedDateTime    │
+└────────▲─────────┘
+         │ N
+         │
+         │
+         │ 1
+       USERS
+
+
+The relationships are:
+
+Users → Posts: One-to-Many
+Users → Likes: One-to-Many
+Posts → Likes: One-to-Many
+Users ↔ Posts through Likes: Many-to-Many
+Answers
+
+a. Which tables have a One-to-Many relationship?
+
+Users → Posts
+Users → Likes
+Posts → Likes
+
+b. How does the Likes table help represent a Many-to-Many relationship between Users and Posts?
+The Likes table stores both UserID and PostID. This records which user liked which post, allowing many users to like many posts.
+
+c. Why is a separate Likes table useful?
+A separate Likes table keeps each like as a separate record. It avoids storing a large list of users inside the Posts table and makes it easier to add, remove, and count likes.
+
+
+Task 7: Given Data
+
+Users
+
+| UserID | Name |
+| ------ | ---- |
+| 1      | Aman |
+| 2      | Riya |
+| 3      | Neha |
+
+
+Posts
+
+| PostID | UserID | Caption      |
+| ------ | -----: | ------------ |
+| 101    |      1 | First post   |
+| 102    |      2 | Travel Day   |
+| 103    |      3 | Good Morning |
+
+Likes
+
+| LikeID | UserID | PostID |
+| ------ | -----: | -----: |
+| 1      |      2 |    101 |
+| 2      |      3 |    101 |
+| 3      |      1 |    103 |
+
+
+Answers
+
+a. Which user created Post 101?
+Aman created Post 101.
+
+b. How many posts were created by Aman?
+Aman created 1 post.
+
+c. Which users liked Post 101?
+Riya and Neha liked Post 101.
+
+d. Which post was liked by Aman?
+Aman liked Post 103.
+
+e. Which relationship helps you connect Posts with Users?
+The UserID foreign key in the Posts table connects Posts with Users.
+
+f. Which table helps you identify who liked which post?
+The Likes table.
+
+
+
+Task 8: Follow Feature
+Answers
+
+a. Would the Follow feature require a separate table? Why?
+Yes. A separate Follow table is needed because users can follow many users, and users can also be followed by many users.
+
+b. Suggest suitable columns for a Follow table.
+
+
+| Column         | Purpose                       |
+| -------------- | ----------------------------- |
+| FollowID       | Unique ID for each follow     |
+| FollowerUserID | ID of the user who follows    |
+| FollowedUserID | ID of the user being followed |
+| FollowDateTime | Date and time of following    |
+
+
+
+c. If User A follows User B, what information should be stored?
+The database should store User A's ID as FollowerUserID and User B's ID as FollowedUserID.
+
+d. Can one user follow many users?
+Yes.
+
+e. Can one user be followed by many users?
+Yes.
+
+f. What type of relationship does this represent?
+It represents a Many-to-Many relationship between Users.
+
+
+                   Updated Database Diagram
+
+                         ┌──────────────────┐
+                         │      USERS       │
+                         ├──────────────────┤
+                         │ UserID (PK)      │
+                         │ Name             │
+                         │ Username         │
+                         │ Email            │
+                         └──────┬───────────┘
+                                │
+                    ┌───────────┼────────────┐
+                    │ 1         │ 1          │
+                    │           │            │
+                    │ N         │ N          │ N
+             ┌──────▼─────┐ ┌──▼────────┐ ┌─▼─────────────┐
+             │   POSTS    │ │  LIKES    │ │    FOLLOW     │
+             ├────────────┤ ├───────────┤ ├───────────────┤
+             │ PostID PK  │ │ LikeID PK │ │ FollowID PK   │
+             │ UserID FK  │ │ UserID FK │ │ FollowerID FK │
+             │ Caption    │ │ PostID FK │ │ FollowedID FK │
+             │ DateTime   │ │ DateTime  │ │ DateTime      │
+             └──────┬─────┘ └─────▲─────┘ └───────▲───────┘
+                    │ N            │ N             │
+                    └──────────────┘               │
+                                                   │
+                         Users ↔ Users ────────────┘
+                              Many-to-Many
+
+
+
+Short Explanation
+
+The Users table stores information about each user in the application. The Posts table stores posts created by users and uses UserID to connect each post to its creator. The Likes table records which users liked which posts using UserID and PostID. Therefore, Likes helps represent the many-to-many relationship between Users and Posts. The Follow table stores relationships between users using FollowerUserID and FollowedUserID. A user can follow many users, while a user can also have many followers. Together, these tables provide a structured way to store users, posts, likes, and follows.
+

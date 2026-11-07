@@ -1,0 +1,10 @@
+STUDENT DETAILS:
+Name: Rani kumari | Roll No: B25BS1270 | Email: b25bs1270@iitj.ac.in
+
+DEADLOCK ANALYSIS & RESOLUTION REPORT
+
+In the original reproduction code (deadlock_repro.c), a deadlock occurred because Process P0 requested Semaphore S then Q, while Process P1 requested Semaphore Q then S. This created a cycle where each process held one resource while waiting for the other.
+
+In the fixed version (deadlock_fixed.c), I resolved this by breaking the "Circular Wait" condition—one of the four necessary Coffman deadlock conditions.
+
+By enforcing a strict Resource Ordering strategy, both P0 and P1 must acquire Semaphore S before requesting Semaphore Q. Because all processes request resources in identical global order, a closed loop in the Resource Allocation Graph becomes mathematically impossible, completely eliminating circular wait and enabling both processes to execute successfully.

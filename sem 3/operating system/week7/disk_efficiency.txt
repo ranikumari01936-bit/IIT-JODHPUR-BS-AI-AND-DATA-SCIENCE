@@ -1,0 +1,60 @@
+==============================================================
+ DISK SCHEDULING EFFICIENCY REPORT: FIFO vs OPTIMIZED ORDER
+==============================================================
+
+1. INPUT REQUESTS
+   Request  Target Sector  Target Track  Operation
+   R1       10             Track 1       Read   (initial: head is at sector 10, track 1)
+   R2       50             Track 4       Write
+   R3       12             Track 1       Read
+
+2. ASSUMPTIONS
+   - Sector distance = |next sector - current sector|; head starts at R1 (sector 10, Track 1).
+   - All requests are queued at time 0; R1 is the initial request and is served first in both cases.
+   - Timing model: seek = 2.0 ms per track crossed, rotational/sector travel = 0.05 ms per
+     sector of distance, transfer = 0.1 ms per request.
+   - Response time = completion time of each request measured from time 0.
+
+3. FIFO SEQUENCE: R1 -> R2 -> R3  (sectors 10 -> 50 -> 12)
+  Order  Sector Track Op     SectorDist TrackMoves Service(ms) Completion(ms)
+  R1     10     T1    Read   0          0          0.10        0.10
+  R2     50     T4    Write  40         3          8.10        8.20
+  R3     12     T1    Read   38         3          8.00        16.20
+  TOTAL sector distance = 78, track moves = 6, avg response = 8.167 ms, makespan = 16.20 ms
+   Sector distance: |50-10| + |12-50| = 40 + 38 = 78
+   Track movement : 1->4->1 = 3 + 3 = 6 tracks
+   Average response time = (0.10 + 8.20 + 16.20) / 3 = 8.167 ms
+
+4. OPTIMIZED (PROXIMITY-BASED) SEQUENCE: R1 -> R3 -> R2  (sectors 10 -> 12 -> 50)
+   Rule: always serve the pending request closest to the current head position (shortest seek first).
+  Order  Sector Track Op     SectorDist TrackMoves Service(ms) Completion(ms)
+  R1     10     T1    Read   0          0          0.10        0.10
+  R3     12     T1    Read   2          0          0.20        0.30
+  R2     50     T4    Write  38         3          8.00        8.30
+  TOTAL sector distance = 40, track moves = 3, avg response = 2.900 ms, makespan = 8.30 ms
+   Sector distance: |12-10| + |50-12| = 2 + 38 = 40
+   Track movement : 1->1->4 = 0 + 3 = 3 tracks
+   Average response time = (0.10 + 0.30 + 8.30) / 3 = 2.900 ms
+
+5. COMPARISON
+   Metric                         FIFO      Optimized   Improvement
+   Total sector distance          78        40          48.7% less
+   Track-to-track moves           6         3           50% less
+   Average response time (ms)     8.167     2.900       64.5% lower
+   Last request done at (ms)      16.20     8.30        48.8% sooner
+   Sectors 10 and 12 are adjacent on Track 1, so grouping them removes the
+   Track 1 -> Track 4 -> Track 1 round trip that FIFO makes.
+
+6. ROLE OF THE I/O SCHEDULER
+   The I/O scheduler sits in the operating system between the file system and the
+   disk driver. Requests arrive in the order applications issue them, but the scheduler
+   keeps them in a device queue and may sort, merge and reorder them (for example
+   SSTF, SCAN/elevator or deadline-style policies) before dispatching them to the HDD.
+   Because a mechanical head spends most of its time seeking and waiting for rotation,
+   reordering by physical location raises throughput and lowers average latency.
+   It must still preserve correctness (requests touching the same block keep their
+   order; here R2 and R3 touch different sectors so reordering is safe) and fairness
+   (an age limit prevents starvation of far-away requests such as R2).
+
+7. RECOMMENDATION SUMMARY (86 words)
+   Recommendation: use the optimized order (R1, R3, R2). Serving sectors 10 and 12 together on Track 1 cuts head travel from 78 to 40 sectors (-48.7%) and track-to-track moves from 6 to 3. Average response time falls from 8.17 ms to 2.90 ms (-64.5%), and all requests finish in 8.3 ms instead of 16.2 ms, so the disk completes more I/O per second. Less seeking also reduces mechanical wear and power. The scheduler should add an age limit so the distant Track 4 request cannot starve.

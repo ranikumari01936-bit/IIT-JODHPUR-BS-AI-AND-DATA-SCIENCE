@@ -1,0 +1,18 @@
+MLFQ Execution Trace
+Process: P1
+Initial Burst: 35 ms
+
+Queue Configuration:
+Q0 = Round Robin, quantum 8 ms
+Q1 = Round Robin, quantum 16 ms
+Q2 = FCFS
+
+Time 0-8 ms   | Q0 | Quantum expired | Remaining burst = 27 ms | Demote to Q1
+Time 8-24 ms  | Q1 | Quantum expired | Remaining burst = 11 ms | Demote to Q2
+Time 24-35 ms | Q2 | Process finished | Remaining burst = 0 ms  | Complete
+
+Queue time totals:
+Q0 = 8 ms
+Q1 = 16 ms
+Q2 = 11 ms
+Total CPU time = 8 + 16 + 11 = 35 ms

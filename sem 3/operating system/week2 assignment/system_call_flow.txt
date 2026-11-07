@@ -1,0 +1,11 @@
+
+
+1. Application in user mode (mode bit = 1) requests "write".
+2. Trap instruction triggers transition → mode bit flips to 0 (kernel mode).
+3. CPU consults System Call Table → finds entry for "write".
+4. Table entry points to kernel routine for device I/O.
+5. Kernel verifies file descriptor and buffer address.
+6. Device controller is instructed via I/O registers.
+7. Data is transferred from memory buffer to device.
+8. Upon completion, kernel sets return value in user space.
+9. Mode bit switches back to 1 → control returns to application.

@@ -1,0 +1,66 @@
+================================================================================
+COURSE: AI & DATA SCIENCE (DBMS / ADVANCED DATA STRUCTURES LAB)
+ASSIGNMENT: QUESTION 2 - TWO-LEVEL SPARSE INDEXING SYSTEM DESIGN
+STUDENT SUBMISSION CONFIGURATION FILE: multilevel_config.txt
+================================================================================
+
+--- GIVEN PROBLEM PARAMETERS ---
+- Total number of data records (N)        : 100,000 records
+- Dataset ordering                        : Ordered by primary key (Search Key)
+- Data record blocking factor (B_fr)      : 10 records per disk block
+- Index entry size                        : 16 bytes (<Record_Key: 8B, Block_Pointer: 8B>)
+- Standard disk block size                : 1,600 bytes (typical sector/page allocation)
+- Index blocking factor (B_fi)            : 1,600 / 16 = 100 index entries per block
+
+--------------------------------------------------------------------------------
+1. DATA LAYER CALCULATION:
+--------------------------------------------------------------------------------
+   Total Data Blocks (B_data) = ceil(N / B_fr)
+                              = 100,000 / 10
+                              = 10,000 disk blocks
+
+--------------------------------------------------------------------------------
+2. LEVEL-1 (INNER) SPARSE INDEX DESIGN:
+--------------------------------------------------------------------------------
+   Because this is a SPARSE index, we only store 1 index entry per data block
+   (pointing to the anchor key / lowest key of each block).
+
+   - Total Level-1 Entries (E_1) = Total Data Blocks = 10,000 entries
+   - Index entries per block     = 100 entries/block
+   - Total Level-1 Blocks (B_1)  = ceil(E_1 / B_fi)
+                                 = 10,000 / 100
+                                 = 100 blocks
+
+   Note: If we stop here, we still have to search across 100 blocks on disk!
+   That requires binary searching disk blocks: ceil(log2(100)) = 7 block reads.
+
+--------------------------------------------------------------------------------
+3. LEVEL-2 (OUTER) SPARSE INDEX DESIGN:
+--------------------------------------------------------------------------------
+   To eliminate binary search directly on the 100 Level-1 disk blocks, we build
+   a second sparse index layer on top of Level-1.
+   Here, 1 entry is created for each Level-1 block.
+
+   - Total Level-2 Entries (E_2) = Total Level-1 Blocks = 100 entries
+   - Total Level-2 Blocks (B_2)  = ceil(E_2 / B_fi)
+                                 = 100 / 100
+                                 = 1 block
+
+   Note: Because Level-2 fits entirely into a single block (100 entries <= 100),
+   it serves as the Root of our indexing hierarchy. It easily stays permanently
+   pinned in main memory (RAM buffer pool).
+
+--------------------------------------------------------------------------------
+4. QUERY EXECUTION COST & I/O BREAKDOWN:
+--------------------------------------------------------------------------------
+   Target: Find record with Key = K
+
+   - Access Level-2 (Outer index) : 1 I/O (or 0 I/O if pinned in memory)
+                                    Binary search 100 entries -> Find Level-1 block.
+   - Access Level-1 (Inner index) : 1 Disk I/O to read target Level-1 block.
+                                    Binary search 100 entries -> Find Data block.
+   - Access Data Block            : 1 Disk I/O to read target data block.
+                                    Linear scan across max 10 records.
+   - Total Worst-Case Disk I/Os   : 3 Block Transfers (vs. 10,000 sequential scans)
+   - Total Best/Cached Disk I/Os  : 2 Block Transfers (when Root is in RAM)
+================================================================================
